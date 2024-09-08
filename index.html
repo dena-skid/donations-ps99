@@ -74,6 +74,10 @@
             return formatted;
         }
 
+        function formatNumberFull(num) {
+            return num.toLocaleString('id-ID');
+        }
+
         document.getElementById('donasiInput').addEventListener('input', function() {
             const donasi = this.value;
             const resultElement = document.getElementById('result');
@@ -95,8 +99,8 @@
             const gems = (donasi / 180) * 1000000;
             const qrisGems = gems * 1.05; // 5% bonus for QRIS
 
-            resultElement.textContent = `Gems yang didapat: ${formatNumber(gems)}`;
-            resultExtraElement.textContent = `Gems jika menggunakan QRIS (5% bonus): ${formatNumber(qrisGems)}`;
+            resultElement.textContent = `Gems yang didapat: ${formatNumber(gems)} (${formatNumberFull(gems)})`;
+            resultExtraElement.textContent = `Gems jika menggunakan QRIS (5% bonus): ${formatNumber(qrisGems)} (${formatNumberFull(qrisGems)})`;
         });
     </script>
 </body>
