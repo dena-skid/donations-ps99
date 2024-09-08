@@ -48,7 +48,7 @@
 <body>
     <div class="container">
         <h1>Berapa Mau Kamu Donasi?</h1>
-        <input type="number" id="donasiInput" placeholder="Masukkan jumlah donasi" min="1000" max="5000000" step="1000">
+        <input type="number" id="donasiInput" placeholder="Masukkan jumlah donasi" min="1000" max="5000000">
         <div class="result" id="result"></div>
         <div class="result-extra" id="resultExtra"></div>
         <div class="error" id="error"></div>
@@ -79,7 +79,7 @@
             errorElement.textContent = '';
 
             if (isNaN(donasi) || donasi < 1000 || donasi > 5000000) {
-                // Set the value back to the last valid value if out of range
+                // Set the value back to the closest valid value if out of range
                 this.value = Math.min(Math.max(donasi, 1000), 5000000);
                 errorElement.textContent = 'Jumlah donasi harus antara 1.000 dan 5.000.000.';
                 return;
