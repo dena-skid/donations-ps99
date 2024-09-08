@@ -25,6 +25,12 @@
             color: green; 
             text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black; /* Text stroke effect */
         }
+        #bonus {
+            margin-top: 10px;
+            font-size: 20px;
+            color: darkorange;
+            text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black; /* Text stroke effect */
+        }
         /* Dark mode based on system preference */
         @media (prefers-color-scheme: dark) {
             body {
@@ -34,6 +40,9 @@
             }
             #result {
                 color: lightgreen; /* Adjusted color for dark mode */
+            }
+            #bonus {
+                color: orange; /* Adjusted color for dark mode */
             }
         }
     </style>
@@ -46,20 +55,25 @@
     <input type="number" id="inputValue" placeholder="Masukkan jumlah donasi" min="3000" max="5000000" oninput="calculate()" />
 
     <div id="result"></div>
+    <div id="bonus"></div> <!-- Element for QRIS bonus -->
 
     <script>
         function calculate() {
             var inputValue = parseInt(document.getElementById('inputValue').value);
             var result = 0;
+            var bonus = 0;
 
             if (isNaN(inputValue) || inputValue < 3000 || inputValue > 5000000) {
                 document.getElementById('result').innerText = "Harap masukkan angka antara 3.000 dan 5.000.000.";
+                document.getElementById('bonus').innerText = "";
                 return;
             }
 
             result = (inputValue / 180) * 1000000;
+            bonus = result * 0.05; // 5% bonus for QRIS
 
             document.getElementById('result').innerText = "Hasil: " + formatNumber(result) + " gems";
+            document.getElementById('bonus').innerText = "Hasil dengan QRIS (bonus 5%): " + formatNumber(result + bonus) + " gems";
         }
 
         function formatNumber(num) {
