@@ -6,100 +6,57 @@
     <title>Gems Calculator</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"> <!-- Link to Fredoka One font -->
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
+        body {
             font-family: 'Fredoka One', cursive; /* Apply Fredoka One font */
             text-align: center;
+            margin-top: 50px;
             background-color: white;
             color: black;
             transition: background-color 0.5s, color 0.5s;
-            text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black; /* Text stroke effect */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
         }
-        h1, p, #result, #exactValue {
-            margin: 0;
+        input { 
+            padding: 10px; 
+            font-size: 16px; 
         }
-        h1 {
-            font-size: 5vw; /* Responsive font size for heading */
+        #result { 
+            margin-top: 20px; 
+            font-size: 24px; 
+            color: green; 
         }
-        p {
-            font-size: 3vw; /* Responsive font size for paragraph */
-        }
-        input {
-            padding: 10px;
-            font-size: 2vw; /* Responsive font size for input */
-            margin-top: 20px;
-            width: 80%;
-            max-width: 500px; /* Maximum width for input */
-        }
-        #result, #exactValue {
-            margin-top: 20px;
-            font-size: 4vw; /* Responsive font size for result and exact value */
-        }
-        #result {
-            color: green; /* Result color */
-        }
-        #exactValue {
-            color: black; /* Exact value color */
-        }
-        /* Dark mode based on system preference */
-        @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #333;
-                color: white;
-                text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black; /* Text stroke effect */
-            }
-            #result {
-                color: lightgreen; /* Adjusted color for dark mode */
-            }
-            #exactValue {
-                color: lightgray; /* Adjusted color for dark mode */
-            }
+        #bonus {
+            margin-top: 10px;
+            font-size: 20px;
+            color: darkorange;
         }
     </style>
 </head>
 <body>
 
-    <h1>How many coins do you want to give?</h1>
-    <p>Enter the number of coins (1-100,000) and see the result in gems:</p>
+    <h1>Berapa mau kamu donasi?</h1>
+    <p>Masukkan jumlah donasi (3.000 - 5.000.000) dan lihat hasil dalam gems:</p>
 
-    <input type="number" id="inputValue" placeholder="Enter number of coins" min="1" max="100000" oninput="calculate()" />
+    <input type="number" id="inputValue" placeholder="Masukkan jumlah donasi" min="3000" max="5000000" oninput="calculate()" />
 
     <div id="result"></div>
-    <div id="exactValue"></div> <!-- Element for exact value without label -->
+    <div id="bonus"></div> <!-- Element for QRIS bonus -->
 
     <script>
         function calculate() {
             var inputValue = parseInt(document.getElementById('inputValue').value);
             var result = 0;
+            var bonus = 0;
 
-            if (isNaN(inputValue) || inputValue < 1 || inputValue > 100000) {
-                document.getElementById('result').innerText = "Please enter a number between 1 and 100,000.";
-                document.getElementById('exactValue').innerText = "";
+            if (isNaN(inputValue) || inputValue < 3000 || inputValue > 5000000) {
+                document.getElementById('result').innerText = "Harap masukkan angka antara 3.000 dan 5.000.000.";
+                document.getElementById('bonus').innerText = "";
                 return;
             }
 
-            if (inputValue >= 1 && inputValue <= 4) {
-                result = inputValue * 400000;
-            } else if (inputValue >= 5 && inputValue <= 9) {
-                result = inputValue * 400000;
-            } else if (inputValue >= 10 && inputValue <= 99) {
-                result = inputValue * 420000;
-            } else if (inputValue >= 100 && inputValue <= 499) {
-                result = inputValue * 430000;
-            } else if (inputValue >= 500 && inputValue <= 999) {
-                result = inputValue * 440000;
-            } else if (inputValue >= 1000) {
-                result = inputValue * 450000;
-            }
+            result = (inputValue / 180) * 1000000;
+            bonus = result * 0.05; // 5% bonus for QRIS
 
-            document.getElementById('result').innerText = "Result: " + formatNumber(result) + " gems";
-            document.getElementById('exactValue').innerText = result.toLocaleString(); // Displaying only the number
+            document.getElementById('result').innerText = "Hasil: " + formatNumber(result) + " gems";
+            document.getElementById('bonus').innerText = "Hasil dengan QRIS (bonus 5%): " + formatNumber(result + bonus) + " gems";
         }
 
         function formatNumber(num) {
