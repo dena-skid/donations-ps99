@@ -21,13 +21,25 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        input[type="number"] {
+        input[type="number"], select {
             width: 100%;
             padding: 10px;
             font-size: 16px;
             border: 2px solid #ddd;
             border-radius: 5px;
             margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
         }
         .result {
             font-size: 24px;
@@ -48,10 +60,11 @@
     <div class="container">
         <h1>Berapa Mau Kamu Donasi?</h1>
         <input type="number" id="donasiInput" placeholder="Masukkan jumlah donasi" min="3000" max="5000000">
-        <label>
-            <input type="checkbox" id="qrisBonus">
-            Bonus 5% jika donasi via QRIS "Toko Sembako Widya"
-        </label>
+        <select id="paymentMethod">
+            <option value="none">Metode Pembayaran</option>
+            <option value="qris">QRIS</option>
+            <option value="other">Metode Lain</option>
+        </select>
         <div class="result" id="result"></div>
         <div class="bonus" id="bonus"></div>
         <div class="error" id="error"></div>
@@ -70,12 +83,16 @@
             }
         }
 
-        function calculateResults() {
+        function calculateGems(donasi) {
+            return (donasi / 180) * 1000000;
+        }
+
+        function updateResults() {
             const donasi = document.getElementById('donasiInput').value;
+            const paymentMethod = document.getElementById('paymentMethod').value;
             const resultElement = document.getElementById('result');
             const bonusElement = document.getElementById('bonus');
             const errorElement = document.getElementById('error');
-            const qrisBonus = document.getElementById('qrisBonus').checked;
 
             // Clear previous messages
             resultElement.textContent = '';
@@ -88,18 +105,18 @@
             }
 
             // Calculate gems
-            const gems = (donasi / 180) * 1000000;
+            const gems = calculateGems(donasi);
             resultElement.textContent = `Gems yang didapat: ${formatNumber(gems)}`;
 
-            // Calculate bonus if QRIS is checked
-            if (qrisBonus) {
-                const bonusGems = gems * 1.05;
-                bonusElement.textContent = `Dengan bonus QRIS 5%: ${formatNumber(bonusGems)}`;
+            // Calculate bonus
+            if (paymentMethod === 'qris') {
+                const bonusGems = gems * 1.05; // 5% bonus
+                bonusElement.textContent = `Dengan QRIS, gems yang didapat: ${formatNumber(bonusGems)}`;
             }
         }
 
-        document.getElementById('donasiInput').addEventListener('input', calculateResults);
-        document.getElementById('qrisBonus').addEventListener('change', calculateResults);
+        document.getElementById('donasiInput').addEventListener('input', updateResults);
+        document.getElementById('paymentMethod').addEventListener('change', updateResults);
     </script>
 </body>
 </html>
