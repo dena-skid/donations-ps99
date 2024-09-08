@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Gems</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"> <!-- Link ke font Fredoka One -->
+    <title>Gems Calculator</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"> <!-- Link to Fredoka One font -->
     <style>
         body {
-            font-family: 'Fredoka One', cursive; /* Terapkan font Fredoka One */
+            font-family: 'Fredoka One', cursive; /* Apply Fredoka One font */
             text-align: center;
             margin-top: 50px;
             background-color: white;
             color: black;
             transition: background-color 0.5s, color 0.5s;
-            text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black; /* Efek stroke teks */
+            text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black; /* Text stroke effect */
         }
         input { 
             padding: 10px; 
@@ -23,17 +23,17 @@
             margin-top: 20px; 
             font-size: 24px; 
             color: green; 
-            text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black; /* Efek stroke teks */
+            text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black; /* Text stroke effect */
         }
-        /* Mode gelap berdasarkan preferensi sistem */
+        /* Dark mode based on system preference */
         @media (prefers-color-scheme: dark) {
             body {
                 background-color: #333;
                 color: white;
-                text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black; /* Efek stroke teks */
+                text-shadow: 1px 1px 2px black, -1px -1px 2px black, 1px -1px 2px black, -1px 1px 2px black; /* Text stroke effect */
             }
             #result {
-                color: lightgreen; /* Warna disesuaikan untuk mode gelap */
+                color: lightgreen; /* Adjusted color for dark mode */
             }
         }
     </style>
@@ -64,13 +64,13 @@
 
         function formatNumber(num) {
             if (num >= 1e9) {
-                return (num / 1e9).toFixed(2).replace('.00', '') + 'b'; // Miliar
+                return (num / 1e9).toFixed(2).replace('.00', '') + 'b'; // Billions
             } else if (num >= 1e6) {
-                return (num / 1e6).toFixed(2).replace('.00', '') + 'j'; // Juta
+                return (num / 1e6).toFixed(2).replace('.00', '') + 'm'; // Millions
             } else if (num >= 1e3) {
-                return (num / 1e3).toFixed(2).replace('.00', '') + 'r'; // Ribuan
+                return (num / 1e3).toFixed(2).replace('.00', '') + 'k'; // Thousands
             } else {
-                return num.toLocaleString(); // Tanpa singkatan
+                return num.toLocaleString(); // Without abbreviation
             }
         }
     </script>
