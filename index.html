@@ -28,7 +28,6 @@
             border: 2px solid #ddd;
             border-radius: 5px;
             margin-bottom: 20px;
-            box-sizing: border-box;
         }
         .result {
             font-size: 24px;
@@ -48,7 +47,7 @@
 <body>
     <div class="container">
         <h1>Berapa Mau Kamu Donasi?</h1>
-        <input type="number" id="donasiInput" placeholder="Masukkan jumlah donasi" min="1000" max="5000000">
+        <input type="number" id="donasiInput" placeholder="Masukkan jumlah donasi" min="1" max="5000000">
         <div class="result" id="result"></div>
         <div class="result-extra" id="resultExtra"></div>
         <div class="error" id="error"></div>
@@ -57,18 +56,18 @@
     <script>
         function formatNumber(num) {
             if (num >= 1000000000) {
-                return (num / 1000000000).toFixed(2) + 'b';
+                return (num / 1000000000).toFixed(1) + 'b';
             } else if (num >= 1000000) {
-                return (num / 1000000).toFixed(2) + 'm';
+                return (num / 1000000).toFixed(1) + 'm';
             } else if (num >= 1000) {
-                return (num / 1000).toFixed(2) + 'k';
+                return (num / 1000).toFixed(1) + 'k';
             } else {
-                return num.toFixed(2);
+                return num;
             }
         }
 
         document.getElementById('donasiInput').addEventListener('input', function() {
-            const donasi = parseFloat(this.value);
+            const donasi = this.value;
             const resultElement = document.getElementById('result');
             const resultExtraElement = document.getElementById('resultExtra');
             const errorElement = document.getElementById('error');
@@ -78,10 +77,9 @@
             resultExtraElement.textContent = '';
             errorElement.textContent = '';
 
-            if (isNaN(donasi) || donasi < 1000 || donasi > 5000000) {
-                // Set the value back to the closest valid value if out of range
-                this.value = Math.min(Math.max(donasi, 1000), 5000000);
-                errorElement.textContent = 'Jumlah donasi harus antara 1.000 dan 5.000.000.';
+            // Validate input range
+            if (donasi === '' || donasi < 1 || donasi > 5000000) {
+                errorElement.textContent = 'Jumlah donasi harus antara 1 dan 5.000.000.';
                 return;
             }
 
