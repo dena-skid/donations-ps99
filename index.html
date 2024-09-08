@@ -28,6 +28,7 @@
             border: 2px solid #ddd;
             border-radius: 5px;
             margin-bottom: 20px;
+            box-sizing: border-box;
         }
         .result {
             font-size: 24px;
@@ -56,13 +57,13 @@
     <script>
         function formatNumber(num) {
             if (num >= 1000000000) {
-                return (num / 1000000000).toFixed(1) + 'b';
+                return (num / 1000000000).toFixed(2) + 'b';
             } else if (num >= 1000000) {
-                return (num / 1000000).toFixed(1) + 'm';
+                return (num / 1000000).toFixed(2) + 'm';
             } else if (num >= 1000) {
-                return (num / 1000).toFixed(1) + 'k';
+                return (num / 1000).toFixed(2) + 'k';
             } else {
-                return num;
+                return num.toFixed(2);
             }
         }
 
@@ -78,6 +79,8 @@
             errorElement.textContent = '';
 
             if (isNaN(donasi) || donasi < 1000 || donasi > 5000000) {
+                // Set the value back to the closest valid value if out of range
+                this.value = Math.min(Math.max(donasi, 1000), 5000000);
                 errorElement.textContent = 'Jumlah donasi harus antara 1.000 dan 5.000.000.';
                 return;
             }
