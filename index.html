@@ -1,76 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gems Calculator</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"> <!-- Link to Fredoka One font -->
+    <title>Berapa Mau Kamu Donasi?</title>
     <style>
         body {
-            font-family: 'Fredoka One', cursive; /* Apply Fredoka One font */
+            font-family: 'Fredoka One', sans-serif;
+            background-color: #f4f4f4;
             text-align: center;
-            margin-top: 50px;
-            background-color: white;
-            color: black;
-            transition: background-color 0.5s, color 0.5s;
+            margin: 0;
+            padding: 0;
         }
-        input { 
-            padding: 10px; 
-            font-size: 16px; 
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        #result { 
-            margin-top: 20px; 
-            font-size: 24px; 
-            color: green; 
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
-        #bonus {
-            margin-top: 10px;
-            font-size: 20px;
-            color: darkorange;
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #28a745;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            font-size: 24px;
+            color: green;
+            margin-top: 20px;
+        }
+        .error {
+            color: red;
         }
     </style>
 </head>
 <body>
-
-    <h1>Berapa mau kamu donasi?</h1>
-    <p>Masukkan jumlah donasi (3.000 - 5.000.000) dan lihat hasil dalam gems:</p>
-
-    <input type="number" id="inputValue" placeholder="Masukkan jumlah donasi" min="3000" max="5000000" oninput="calculate()" />
-
-    <div id="result"></div>
-    <div id="bonus"></div> <!-- Element for QRIS bonus -->
+    <div class="container">
+        <h1>Berapa Mau Kamu Donasi?</h1>
+        <input type="number" id="donasiInput" placeholder="Masukkan jumlah donasi" min="3000" max="5000000">
+        <button onclick="hitungGems()">Hitung Gems</button>
+        <div class="result" id="result"></div>
+        <div class="error" id="error"></div>
+    </div>
 
     <script>
-        function calculate() {
-            var inputValue = parseInt(document.getElementById('inputValue').value);
-            var result = 0;
-            var bonus = 0;
+        function hitungGems() {
+            const donasi = document.getElementById('donasiInput').value;
+            const resultElement = document.getElementById('result');
+            const errorElement = document.getElementById('error');
 
-            if (isNaN(inputValue) || inputValue < 3000 || inputValue > 5000000) {
-                document.getElementById('result').innerText = "Harap masukkan angka antara 3.000 dan 5.000.000.";
-                document.getElementById('bonus').innerText = "";
+            // Clear previous messages
+            resultElement.textContent = '';
+            errorElement.textContent = '';
+
+            if (donasi < 3000 || donasi > 5000000) {
+                errorElement.textContent = 'Jumlah donasi harus antara 3.000 dan 5.000.000.';
                 return;
             }
 
-            result = (inputValue / 180) * 1000000;
-            bonus = result * 0.05; // 5% bonus for QRIS
-
-            document.getElementById('result').innerText = "Hasil: " + formatNumber(result) + " gems";
-            document.getElementById('bonus').innerText = "Hasil dengan QRIS (bonus 5%): " + formatNumber(result + bonus) + " gems";
-        }
-
-        function formatNumber(num) {
-            if (num >= 1e9) {
-                return (num / 1e9).toFixed(2).replace('.00', '') + 'b'; // Billions
-            } else if (num >= 1e6) {
-                return (num / 1e6).toFixed(2).replace('.00', '') + 'm'; // Millions
-            } else if (num >= 1e3) {
-                return (num / 1e3).toFixed(2).replace('.00', '') + 'k'; // Thousands
-            } else {
-                return num.toLocaleString(); // Without abbreviation
-            }
+            // Calculate gems
+            const gems = (donasi / 180) * 1000000;
+            resultElement.textContent = `Gems yang didapat: ${gems.toLocaleString()}`;
         }
     </script>
-
 </body>
 </html>
