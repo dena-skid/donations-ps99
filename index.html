@@ -29,10 +29,15 @@
             border-radius: 5px;
             margin-bottom: 20px;
         }
-        .result, .bonus {
+        .result {
             font-size: 24px;
             color: green;
             margin-top: 20px;
+        }
+        .bonus {
+            font-size: 18px;
+            color: #007bff;
+            margin-top: 10px;
         }
         .error {
             color: red;
@@ -79,14 +84,11 @@
 
             // Calculate gems
             const gems = (donasi / 180) * 1000000;
-            const formattedGems = formatNumber(gems);
+            resultElement.textContent = `Gems yang didapat: ${formatNumber(gems)}`;
 
             // Calculate bonus for QRIS
             const bonusGems = gems * 0.05;
-            const formattedBonus = formatNumber(bonusGems);
-
-            resultElement.textContent = `Gems yang didapat: ${formattedGems}`;
-            bonusElement.textContent = `+5% untuk QRIS: ${formattedBonus}`;
+            bonusElement.textContent = `Gems tambahan (+5% untuk QRIS): ${formatNumber(bonusGems)}`;
         });
     </script>
 </body>
