@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donasi Gems Calculator</title>
+    <title>Gems Calculator</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"> <!-- Link to Fredoka One font -->
     <style>
         body {
@@ -41,9 +41,9 @@
 <body>
 
     <h1>Berapa mau kamu donasi?</h1>
-    <p>Masukkan jumlah donasi (3,000 - 5,000,000) dan lihat hasil dalam gems:</p>
+    <p>Enter the number of coins (3,000 - 5,000,000) and see the result in gems:</p>
 
-    <input type="number" id="inputValue" placeholder="Masukkan jumlah donasi" min="3000" max="5000000" oninput="calculate()" />
+    <input type="number" id="inputValue" placeholder="Enter number of coins" min="3000" max="5000000" oninput="calculate()" />
 
     <div id="result"></div>
 
@@ -51,24 +51,20 @@
         function calculate() {
             var inputValue = parseInt(document.getElementById('inputValue').value);
             var result = 0;
+            var donationType = 'no bonus'; // Default value
 
             if (isNaN(inputValue) || inputValue < 3000 || inputValue > 5000000) {
-                document.getElementById('result').innerText = "Masukkan jumlah antara 3,000 dan 5,000,000.";
+                document.getElementById('result').innerText = "Please enter a number between 3,000 and 5,000,000.";
                 return;
             }
 
-            // Calculate base gems
-            result = inputValue / 180;
-
-            // Apply bonus
-            var bonus = 0;
-            if (inputValue <= 5000000) {
-                bonus = 0.05; // 5% bonus for QRIS donations
+            if (donationType === 'QRIS') {
+                result = (inputValue / 180) * 1000000 * 1.05; // 5% bonus
+            } else {
+                result = (inputValue / 180) * 1000000; // No bonus
             }
-            
-            result = result * (1 + bonus);
 
-            document.getElementById('result').innerText = "Hasil: " + formatNumber(result) + " gems";
+            document.getElementById('result').innerText = "Result: " + formatNumber(result) + " gems";
         }
 
         function formatNumber(num) {
