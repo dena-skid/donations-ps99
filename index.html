@@ -34,10 +34,20 @@
             color: green;
             margin-top: 20px;
         }
+        .result-full {
+            font-size: 18px;
+            color: #333;
+            margin-top: 5px;
+        }
         .result-extra {
             font-size: 20px;
             color: #007bff;
-            margin-top: 10px;
+            margin-top: 20px;
+        }
+        .result-extra-full {
+            font-size: 18px;
+            color: #333;
+            margin-top: 5px;
         }
         .error {
             color: red;
@@ -49,7 +59,9 @@
         <h1>Berapa Mau Kamu Donasi?</h1>
         <input type="number" id="donasiInput" placeholder="Masukkan jumlah donasi" min="1" max="5000000">
         <div class="result" id="result"></div>
+        <div class="result-full" id="resultFull"></div>
         <div class="result-extra" id="resultExtra"></div>
+        <div class="result-extra-full" id="resultExtraFull"></div>
         <div class="error" id="error"></div>
     </div>
 
@@ -81,12 +93,16 @@
         document.getElementById('donasiInput').addEventListener('input', function() {
             const donasi = this.value;
             const resultElement = document.getElementById('result');
+            const resultFullElement = document.getElementById('resultFull');
             const resultExtraElement = document.getElementById('resultExtra');
+            const resultExtraFullElement = document.getElementById('resultExtraFull');
             const errorElement = document.getElementById('error');
 
             // Clear previous messages
             resultElement.textContent = '';
+            resultFullElement.textContent = '';
             resultExtraElement.textContent = '';
+            resultExtraFullElement.textContent = '';
             errorElement.textContent = '';
 
             // Validate input range
@@ -99,8 +115,10 @@
             const gems = (donasi / 180) * 1000000;
             const qrisGems = gems * 1.05; // 5% bonus for QRIS
 
-            resultElement.textContent = `Gems yang didapat: ${formatNumber(gems)} (${formatNumberFull(gems)})`;
-            resultExtraElement.textContent = `Gems jika menggunakan QRIS (5% bonus): ${formatNumber(qrisGems)} (${formatNumberFull(qrisGems)})`;
+            resultElement.textContent = `Gems yang didapat: ${formatNumber(gems)}`;
+            resultFullElement.textContent = `(${formatNumberFull(gems)})`;
+            resultExtraElement.textContent = `Gems jika menggunakan QRIS (5% bonus): ${formatNumber(qrisGems)}`;
+            resultExtraFullElement.textContent = `(${formatNumberFull(qrisGems)})`;
         });
     </script>
 </body>
