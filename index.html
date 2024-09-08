@@ -51,6 +51,11 @@
         }
         .error {
             color: red;
+            margin-top: 10px;
+        }
+        .warning {
+            color: orange;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -63,6 +68,7 @@
         <div class="result-extra" id="resultExtra"></div>
         <div class="result-extra-full" id="resultExtraFull"></div>
         <div class="error" id="error"></div>
+        <div class="warning" id="warning"></div>
     </div>
 
     <script>
@@ -97,6 +103,7 @@
             const resultExtraElement = document.getElementById('resultExtra');
             const resultExtraFullElement = document.getElementById('resultExtraFull');
             const errorElement = document.getElementById('error');
+            const warningElement = document.getElementById('warning');
 
             // Clear previous messages
             resultElement.textContent = '';
@@ -104,10 +111,17 @@
             resultExtraElement.textContent = '';
             resultExtraFullElement.textContent = '';
             errorElement.textContent = '';
+            warningElement.textContent = '';
 
             // Validate input range
             if (donasi === '' || donasi < 1 || donasi > 5000000) {
                 errorElement.textContent = 'Jumlah donasi harus antara 1 dan 5.000.000.';
+                return;
+            }
+
+            // Check for warning condition
+            if (donasi < 3000) {
+                warningElement.textContent = 'Harap masukkan jumlah di atas 3.000.';
                 return;
             }
 
