@@ -28,7 +28,6 @@
             border: 2px solid #ddd;
             border-radius: 5px;
             margin-bottom: 20px;
-            box-sizing: border-box;
         }
         .result {
             font-size: 24px;
@@ -79,8 +78,6 @@
             errorElement.textContent = '';
 
             if (isNaN(donasi) || donasi < 1000 || donasi > 5000000) {
-                // Set the value back to the closest valid value if out of range
-                this.value = '';
                 errorElement.textContent = 'Jumlah donasi harus antara 1.000 dan 5.000.000.';
                 return;
             }
